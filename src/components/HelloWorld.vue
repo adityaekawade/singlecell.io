@@ -214,8 +214,8 @@ global.$ = jQuery;
       },
       loginUser(){
         var data = {
-          "name": "adit",
-          "pass": "Test1234!"
+          "name": "",
+          "pass": "!"
         }
         var headers = {
           'Content-Type' : 'application/json',
@@ -231,17 +231,6 @@ global.$ = jQuery;
               .catch(e =>{
                 console.log(e)
               })
-      },
-      loginAdmin(){
-
-        // axios.get(`https://singlecell.iobio.io/rest/session/token`)
-        //       .then(res =>{
-        //         console.log(res)
-        //       })
-        //       .catch(e =>{
-        //         console.log(e)
-        //       })
-
       },
       logoutUser(){
         var data = {
@@ -286,46 +275,8 @@ global.$ = jQuery;
         .catch(e =>{
           console.log(e)
         })
-
-
-
-
-
         // new config
         console.log("Create Article");
-      //   var data = {
-      //     // "type":[{"target_id":"article"}],
-      //     "type":[{"target_id":"knowledgebase"}],
-      //     // "_links": {
-      //     //   "type": {
-      //     //     "href": "https://singlecell.iobio.io/rest/type/node/Article"
-      //     //   }
-      //     // },
-      //     "title": [
-      //       {
-      //         "value": "new config 2"
-      //       }
-      //     ],
-      //     "body": [
-      //       {
-      //         "value": "some random text"
-      //       }
-      //     ]
-      //   }
-      //
-      //   var headers = {
-      //     'Accept' : 'json',
-      //     'Content-Type' : 'application/json',
-      //     'Authorization' :'Basic YWRpdDpUZXN0MTIzNCE=',
-      //     'X-CSRF-Token' : 'eLBaNJXK7u3NfuGSTZ-ukQT5QSF8ClDAVfHswkWg1iY'
-      //   }
-      //   axios.post(`https://singlecell.iobio.io/node?_format=json`, data, headers)
-      //         .then(res =>{
-      //           console.log(res)
-      //         })
-      //         .catch(e =>{
-      //           console.log(e)
-      //         })
       }
     },
     data: () => ({
