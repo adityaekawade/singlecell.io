@@ -130,6 +130,7 @@ import axios from 'axios';
 import jQuery from 'jquery';
 global.jQuery = jQuery;
 global.$ = jQuery;
+var basic = require('basic-authorization-header');
 
 
   export default {
@@ -141,6 +142,8 @@ global.$ = jQuery;
         this.getUserPosts();
         this.isAuthenticated = true;
       }
+
+      // console.log("basic auth", basic("adit", "Test1234!"))
 
       fetch(`https://singlecell.iobio.io/api/knowledgebase?_format=json`)
               .then(response => response.json())
@@ -187,11 +190,13 @@ global.$ = jQuery;
                 this.isAuthenticated = true;
                 this.current_user = this.uName;
                 this.current_user_uid = res.data.current_user.uid;
+                this.basicAuth = basic(this.uName, this.uPass);
                 this.uName = "";
                 this.uPass = "";
                 localStorage.setItem("username", this.current_user);
                 localStorage.setItem("csrf_token", this.csrf_token);
                 localStorage.setItem("current_user_uid", this.current_user_uid);
+                localStorage.setItem("basicAuth", this.basicAuth);
                 this.getUserPosts();
               })
               .catch(e =>{
@@ -203,6 +208,7 @@ global.$ = jQuery;
         localStorage.removeItem("username");
         localStorage.removeItem("csrf_token");
         localStorage.removeItem("current_user_uid");
+        localStorage.removeItem("basicAuth");
       },
       getUserPosts(){
         fetch(`https://singlecell.iobio.io/api/knowledgebase/uid/${this.current_user_uid}?_format=json`)
@@ -266,7 +272,7 @@ global.$ = jQuery;
           },
           headers: {
             'Content-Type' : 'application/json',
-            'Authorization' :'Basic YWRpdDpUZXN0MTIzNCE='
+            'Authorization' : this.basicAuth
           }
         }).then(res =>{
           console.log(res)
@@ -293,6 +299,7 @@ global.$ = jQuery;
       postTitle: "",
       articleContent: "",
       articleDialog: false,
+      basicAuth: ""
     })
   }
 </script>
