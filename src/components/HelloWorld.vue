@@ -83,6 +83,13 @@
                 v-model="postBody"
               ></v-textarea>
             </v-flex>
+            <v-flex xs12 sm12 md12>
+              <div v-if="base64Img.length>0">
+              </div>
+              <input type="file" @change="onFileChange">
+              <br>
+              <img src="" height="200" >
+            </v-flex>
             <v-btn v-on:click="createNewKnowledgeArticle" color="primary">Post</v-btn>
             <br>
             <br>
@@ -308,6 +315,26 @@ var basic = require('basic-authorization-header');
                 console.log(e)
               })
       },
+      onFileChange(e) {
+        var preview = document.querySelector('img');
+        var file    = document.querySelector('input[type=file]').files[0];
+        var reader  = new FileReader();
+
+        reader.addEventListener("load", function () {
+          preview.src = reader.result;
+          callToSetThebase64Img(reader.result);
+        }, false);
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+        var callToSetThebase64Img = (img)=>{
+          this.setThebase64Img(img);
+        }
+      },
+      setThebase64Img(img){
+        this.base64Img = img;
+      },
       createNewKnowledgeArticle(){
         console.log("this.basicAuth", this.basicAuth)
         axios({
@@ -323,6 +350,11 @@ var basic = require('basic-authorization-header');
             "body": [
               {
                 "value": this.postBody
+              }
+            ],
+            "field_base64image": [
+              {
+                "value": this.base64Img
               }
             ]
           },
@@ -356,6 +388,9 @@ var basic = require('basic-authorization-header');
       articleContent: "",
       articleDialog: false,
       basicAuth: "",
+      image: '',
+      base64Img: '',
+      previewUploadedImage: false,
       editor: new Editor({
         content: `
           <h1>Yay Headlines!</h1>

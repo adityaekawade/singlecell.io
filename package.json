@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "basic-authorization-header": "^0.2.7",
+    "image-to-base64": "^2.0.1",
     "jquery": "^3.3.1",
     "tiptap": "^1.8.0",
     "tiptap-extensions": "^1.8.0",

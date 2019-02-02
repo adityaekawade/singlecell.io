@@ -8,8 +8,13 @@
               {{articleContent.title[0].value}}
             </span>
           </v-card-title>
-          <v-card-text>
-            {{articleContent.body[0].value}}
+          <v-card-text v-if="articleContent.field_base64image.length>0">
+            <img height="400px" width="400px" v-bind:src="articleContent.field_base64image[0].value" alt="">
+          </v-card-text>
+
+          <v-card-text
+            v-html="articleContent.body[0].value"
+          >
           </v-card-text>
         </v-card>
       </v-flex>
