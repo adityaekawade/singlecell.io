@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex xs10 mb-5 mt-5>
-        Hello from article!
-        <p>Id is : {{id}}</p>
+      <v-flex xs12 mb-5 mt-5>
         <v-card>
           <v-card-title>
             <span class="headline">

@@ -2,8 +2,12 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>SingleCell</span>
-        <span class="font-weight-light">.io</span>
+        <router-link to="/" exact>
+          <span>
+              SingleCell
+          </span>
+          <span class="font-weight-light">.io</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn

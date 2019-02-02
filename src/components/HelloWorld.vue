@@ -6,7 +6,7 @@
     >
       <v-flex mt-4 mb-4 xs12>
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to SingleCell.io
+            Welcome to SingleCell.io
         </h1>
         <br>
       </v-flex>
@@ -22,7 +22,9 @@
               v-for="(KnowledgeArticle, i) in knowledgebase"
               :key="i"
             >
-              <h3><a style="font-size:18px" v-on:click="getTheArticle(KnowledgeArticle.nid[0].value)">{{KnowledgeArticle.title[0].value}}</a></h3>
+            <h3 style="font-size:18px" ><router-link :to="`/article/${KnowledgeArticle.nid[0].value}/${getTitle(KnowledgeArticle.title[0].value)}`" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3>
+            <!-- <h3 style="font-size:18px" ><router-link :to="{ name: 'Article', params: { id: 22 }}" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3> -->
+              <!-- <h3><a style="font-size:18px" v-on:click="getTheArticle(KnowledgeArticle.nid[0].value)">{{KnowledgeArticle.title[0].value}}</a></h3> -->
               <p v-if="KnowledgeArticle.field_summary.length>0">
                 {{KnowledgeArticle.field_summary[0].value}}
               </p>
@@ -266,6 +268,9 @@ var basic = require('basic-authorization-header');
               .catch(e =>{
                 console.log(e)
               })
+      },
+      getTitle(title){
+        return title.replace(/\s+/g, '-');
       },
       logoutUser(){
         var data = {
