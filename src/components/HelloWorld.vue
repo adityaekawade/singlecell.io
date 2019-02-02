@@ -8,6 +8,7 @@
         <h1 class="display-2 font-weight-bold mb-3">
           Welcome to SingleCell.io
         </h1>
+        <br>
       </v-flex>
 
       <v-flex xs5>
@@ -127,6 +128,25 @@
 
 <script>
 import axios from 'axios';
+import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
+import {
+  Blockquote,
+  CodeBlock,
+  HardBreak,
+  Heading,
+  OrderedList,
+  BulletList,
+  ListItem,
+  TodoItem,
+  TodoList,
+  Bold,
+  Code,
+  Italic,
+  Link,
+  Strike,
+  Underline,
+  History,
+} from 'tiptap-extensions';
 import jQuery from 'jquery';
 global.jQuery = jQuery;
 global.$ = jQuery;
@@ -134,6 +154,12 @@ var basic = require('basic-authorization-header');
 
 
   export default {
+    components: {
+      EditorContent,
+      EditorMenuBar,
+    },
+    updated(){
+    },
     mounted(){
       if (localStorage["username"] && localStorage["csrf_token"]) {
         this.current_user = localStorage.getItem("username");
@@ -162,9 +188,12 @@ var basic = require('basic-authorization-header');
     //     })
 
     },
+    beforeDestroy() {
+      this.editor.destroy()
+    },
     methods: {
       getTheArticle(id){
-        // alert("id is "+  id );
+        alert("id is "+  id );
         fetch(`https://singlecell.iobio.io/node/${id}?_format=json`)
                 .then(response => response.json())
                 .then(data => {
@@ -299,7 +328,31 @@ var basic = require('basic-authorization-header');
       postTitle: "",
       articleContent: "",
       articleDialog: false,
-      basicAuth: ""
+      basicAuth: "",
+      editor: new Editor({
+        content: `
+          <h1>Yay Headlines!</h1>
+          <p>All these <strong>cool tags</strong> are working now.</p>
+        `,
+        extensions: [
+          new Blockquote(),
+          new CodeBlock(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new BulletList(),
+          new OrderedList(),
+          new ListItem(),
+          new TodoItem(),
+          new TodoList(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Link(),
+          new Strike(),
+          new Underline(),
+          new History(),
+        ],
+      }),
     })
   }
 </script>
