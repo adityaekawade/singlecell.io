@@ -4,6 +4,11 @@
       text-xs-center
       wrap
     >
+    {{myHTML}}
+    <br><br>
+    <wysiwyg v-model="myHTML">
+    </wysiwyg>
+
       <v-flex mt-4 mb-4 xs12>
         <h1 class="display-2 font-weight-bold mb-3">
             Welcome to SingleCell.io
@@ -136,25 +141,6 @@
 
 <script>
 import axios from 'axios';
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-import {
-  Blockquote,
-  CodeBlock,
-  HardBreak,
-  Heading,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History,
-} from 'tiptap-extensions';
 import jQuery from 'jquery';
 global.jQuery = jQuery;
 global.$ = jQuery;
@@ -163,8 +149,6 @@ var basic = require('basic-authorization-header');
 
   export default {
     components: {
-      EditorContent,
-      EditorMenuBar,
     },
     props: {
       isAuthenticated:{
@@ -219,7 +203,6 @@ var basic = require('basic-authorization-header');
 
     },
     beforeDestroy() {
-      this.editor.destroy()
     },
     methods: {
       getTheArticle(id){
@@ -376,6 +359,7 @@ var basic = require('basic-authorization-header');
     data: () => ({
       csrf_token: "",
       logout_token: "",
+      myHTML: "",
       knowledgebase: "",
       uName: "",
       uPass: "",
@@ -391,30 +375,6 @@ var basic = require('basic-authorization-header');
       image: '',
       base64Img: '',
       previewUploadedImage: false,
-      editor: new Editor({
-        content: `
-          <h1>Yay Headlines!</h1>
-          <p>All these <strong>cool tags</strong> are working now.</p>
-        `,
-        extensions: [
-          new Blockquote(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new BulletList(),
-          new OrderedList(),
-          new ListItem(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History(),
-        ],
-      }),
     })
   }
 </script>
