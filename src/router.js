@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Article from './components/Article.vue'
+import CreatePost from './components/CreatePost.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/article/:id/:title',
       name: 'Article',
       component: Article
+    },
+    {
+      path: '/create',
+      name: 'Create',
+      component: CreatePost
     },
     {
       path: '/about',

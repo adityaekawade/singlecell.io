@@ -122,7 +122,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
       </div>
     </v-layout>
   </v-container>
@@ -160,16 +159,38 @@ var basic = require('basic-authorization-header');
       EditorContent,
       EditorMenuBar,
     },
+    props: {
+      isAuthenticated:{
+        type: Boolean,
+      },
+    },
+    watch:{
+      isAuthenticated(){
+        console.log("isAuthenticated is changing from HelloWorld", this.isAuthenticated)
+        if(this.isAuthenticated){
+          this.current_user = localStorage.getItem("username");
+          this.current_user_uid = localStorage.getItem("current_user_uid");
+          this.csrf_token = localStorage.getItem("csrf_token");
+          this.basicAuth = localStorage.getItem("basicAuth");
+          this.getUserPosts();
+        }
+      }
+    },
     updated(){
+      console.log("isAuthenticated", this.isAuthenticated)
+
     },
     mounted(){
-      if (localStorage["username"] && localStorage["csrf_token"]) {
-        this.current_user = localStorage.getItem("username");
-        this.current_user_uid = localStorage.getItem("current_user_uid");
-        this.csrf_token = localStorage.getItem("csrf_token");
-        this.getUserPosts();
-        this.isAuthenticated = true;
-      }
+      console.log("isAuthenticated", this.isAuthenticated)
+
+      // if (localStorage["username"] && localStorage["csrf_token"]) {
+      //   this.current_user = localStorage.getItem("username");
+      //   this.current_user_uid = localStorage.getItem("current_user_uid");
+      //   this.csrf_token = localStorage.getItem("csrf_token");
+      //   this.basicAuth = localStorage.getItem("basicAuth");
+      //   this.getUserPosts();
+      //   this.isAuthenticated = true;
+      // }
 
       // console.log("basic auth", basic("adit", "Test1234!"))
 
@@ -288,6 +309,7 @@ var basic = require('basic-authorization-header');
               })
       },
       createNewKnowledgeArticle(){
+        console.log("this.basicAuth", this.basicAuth)
         axios({
           method: "post",
           url: `https://singlecell.iobio.io/node?_format=json`,
@@ -325,7 +347,7 @@ var basic = require('basic-authorization-header');
       knowledgebase: "",
       uName: "",
       uPass: "",
-      isAuthenticated: false,
+      // isAuthenticated: false,
       current_user: "",
       current_user_uid: "",
       userPosts: [],
