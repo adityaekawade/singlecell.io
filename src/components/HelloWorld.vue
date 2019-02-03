@@ -4,11 +4,6 @@
       text-xs-center
       wrap
     >
-    {{myHTML}}
-    <br><br>
-    <wysiwyg v-model="myHTML">
-    </wysiwyg>
-
       <v-flex mt-4 mb-4 xs12>
         <h1 class="display-2 font-weight-bold mb-3">
             Welcome to SingleCell.io
@@ -81,12 +76,16 @@
               ></v-text-field>
             </v-flex>
             <v-flex xs12 sm12 md12>
-              <v-textarea
+              <br><br>
+              <wysiwyg v-model="postBody">
+              </wysiwyg>
+
+              <!-- <v-textarea
                 solo
                 name="input-7-4"
                 label="Content"
                 v-model="postBody"
-              ></v-textarea>
+              ></v-textarea> -->
             </v-flex>
             <v-flex xs12 sm12 md12>
               <div v-if="base64Img.length>0">
