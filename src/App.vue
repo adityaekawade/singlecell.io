@@ -19,6 +19,17 @@
         <span class="mr-2">Create</span>
       </router-link>
       </v-btn>
+
+      <v-btn
+        flat
+        v-if="isAuthenticated"
+        v-on:click="openLoginModal"
+      >
+      <router-link to="/account" exact>
+        <span class="mr-2">Account</span>
+      </router-link>
+      </v-btn>
+
       <v-btn
         flat
         v-if="!isAuthenticated"
