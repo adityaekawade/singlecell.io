@@ -171,7 +171,7 @@ var basic = require('basic-authorization-header');
 
     },
     mounted(){
-      console.log("isAuthenticated", this.isAuthenticated)
+      console.log("isAuthenticated in HelloWorld", this.isAuthenticated)
 
       // if (localStorage["username"] && localStorage["csrf_token"]) {
       //   this.current_user = localStorage.getItem("username");

@@ -12,6 +12,15 @@
       <v-spacer></v-spacer>
       <v-btn
         flat
+        v-if="isAuthenticated"
+        v-on:click="openLoginModal"
+      >
+      <router-link to="/create" exact>
+        <span class="mr-2">Create</span>
+      </router-link>
+      </v-btn>
+      <v-btn
+        flat
         v-if="!isAuthenticated"
         v-on:click="openLoginModal"
       >
@@ -36,9 +45,9 @@
       >
       </router-view>
 
-      <div v-if="loginDialog">
+      <div v-if="loginDialog && !isAuthenticated">
         <v-dialog v-model="loginDialog" width="600px">
-          <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+          <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
           <v-card>
             <v-card-title>
               <span class="headline">
