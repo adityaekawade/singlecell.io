@@ -39,83 +39,6 @@
         </v-flex>
 
       </v-flex>
-
-
-
-      <!--<v-flex xs7>
-         <v-flex xs12 mb-5>
-          <div v-if="!isAuthenticated">
-            <v-text-field
-              name="name"
-              label="username"
-              id="id"
-              v-model="uName"
-            ></v-text-field>
-            <v-text-field
-              name="name"
-              label="Enter your password"
-              hint="At least 8 characters"
-              min="4"
-              type="password"
-              v-model="uPass"
-            ></v-text-field>
-          </div>
-          <v-btn v-if="!isAuthenticated" v-on:click="loginFromForm" color="primary">Login</v-btn>
-          <v-btn v-else v-on:click="logoutFromForm" color="primary">Logout</v-btn>
-
-        </v-flex> -->
-
-        <!-- <v-flex xs12 mb-5>
-          <div v-if="isAuthenticated">
-            <h4>Welcome {{this.current_user}}</h4>
-            Your User id is: {{ current_user_uid }}
-            <br>
-            <br>
-            <h4>Create a quick post</h4>
-            <br>
-            <v-flex xs12 sm12 md12>
-              <v-text-field
-                label="Title"
-                solo
-                v-model="postTitle"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm12 md12>
-              <br><br>
-              <wysiwyg v-model="postBody">
-              </wysiwyg> -->
-
-              <!-- <v-textarea
-                solo
-                name="input-7-4"
-                label="Content"
-                v-model="postBody"
-              ></v-textarea> -->
-            <!-- </v-flex>
-            <v-flex xs12 sm12 md12>
-              <div v-if="base64Img.length>0">
-              </div>
-              <input type="file" @change="onFileChange">
-              <br>
-              <img src="" height="200" >
-            </v-flex> -->
-            <!-- <v-btn v-on:click="createNewKnowledgeArticle" color="primary">Post</v-btn> -->
-            <!-- <br>
-            <br>
-            <h4>Your posts: </h4>
-            <p v-if="userPosts.length>1">
-              <div
-                v-for="(post, i) in userPosts"
-                :key="i"
-              >
-                <h3><a v-on:click="getTheArticle(post.nid[0].value)">{{post.title[0].value}}</a></h3>
-              </div>
-            </p>
-
-          </div>
-        </v-flex>-->
-
-
       </v-flex>
 
 
@@ -172,39 +95,22 @@ var basic = require('basic-authorization-header');
       }
     },
     updated(){
-      console.log("isAuthenticated", this.isAuthenticated)
-
     },
     mounted(){
-      console.log("isAuthenticated in HelloWorld", this.isAuthenticated)
-
-      // if (localStorage["username"] && localStorage["csrf_token"]) {
-      //   this.current_user = localStorage.getItem("username");
-      //   this.current_user_uid = localStorage.getItem("current_user_uid");
-      //   this.csrf_token = localStorage.getItem("csrf_token");
-      //   this.basicAuth = localStorage.getItem("basicAuth");
-      //   this.getUserPosts();
-      //   this.isAuthenticated = true;
-      // }
-
-      // console.log("basic auth", basic("adit", "Test1234!"))
-
       fetch(`https://singlecell.iobio.io/api/knowledgebase?_format=json`)
               .then(response => response.json())
               .then(data => {
                 console.log(data);
                 this.knowledgebase = data;
               })
-
-    // axios.get(`https://singlecell.iobio.io/api/knowledgebase?_format=json`)
-    //     .then(response => {
-    //       // this.posts = response.data
-    //       console.log("axios response ", response)
-    //     })
-    //     .catch(e => {
-    //       // this.errors.push(e)
-    //     })
-
+              // axios.get(`https://singlecell.iobio.io/api/knowledgebase?_format=json`)
+              //     .then(response => {
+              //       // this.posts = response.data
+              //       console.log("axios response ", response)
+              //     })
+              //     .catch(e => {
+              //       // this.errors.push(e)
+              //     })
     },
     beforeDestroy() {
     },
@@ -264,26 +170,6 @@ var basic = require('basic-authorization-header');
                   this.userPosts = data;
                 })
       },
-      loginUser(){
-        var data = {
-          "name": "",
-          "pass": "!"
-        }
-        var headers = {
-          'Content-Type' : 'application/json',
-        }
-
-        axios.post(`https://singlecell.iobio.io/user/login?_format=json`, data, headers)
-              .then(res =>{
-                console.log(res);
-                this.logout_token = res.data.logout_token;
-                this.csrf_token = res.data.csrf_token;
-                console.log(this.csrf_token)
-              })
-              .catch(e =>{
-                console.log(e)
-              })
-      },
       getTitle(title){
         return title.replace(/\s+/g, '-');
       },
@@ -302,63 +188,6 @@ var basic = require('basic-authorization-header');
                 console.log(e)
               })
       },
-      onFileChange(e) {
-        var preview = document.querySelector('img');
-        var file    = document.querySelector('input[type=file]').files[0];
-        var reader  = new FileReader();
-
-        reader.addEventListener("load", function () {
-          preview.src = reader.result;
-          callToSetThebase64Img(reader.result);
-        }, false);
-
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-        var callToSetThebase64Img = (img)=>{
-          this.setThebase64Img(img);
-        }
-      },
-      setThebase64Img(img){
-        this.base64Img = img;
-      },
-      createNewKnowledgeArticle(){
-        console.log("this.basicAuth", this.basicAuth)
-        axios({
-          method: "post",
-          url: `https://singlecell.iobio.io/node?_format=json`,
-          data:{
-            "type":[{"target_id":"knowledgebase"}],
-            "title": [
-              {
-                "value": this.postTitle
-              }
-            ],
-            "body": [
-              {
-                "value": this.postBody
-              }
-            ],
-            "field_base64image": [
-              {
-                "value": this.base64Img
-              }
-            ]
-          },
-          headers: {
-            'Content-Type' : 'application/json',
-            'Authorization' : this.basicAuth
-          }
-        }).then(res =>{
-          console.log(res)
-          alert("Article posted successfully!")
-        })
-        .catch(e =>{
-          console.log(e)
-        })
-        // new config
-        console.log("Create Article");
-      }
     },
     data: () => ({
       csrf_token: "",
