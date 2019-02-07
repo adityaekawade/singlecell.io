@@ -1,44 +1,49 @@
 <template>
   <v-container>
     <v-layout
-      text-xs-center
       wrap
     >
-      <v-flex mt-4 mb-4 xs12>
+      <v-flex mr-4 ml-4 mt-4 mb-4 xs12>
         <h1 class="display-2 font-weight-bold mb-3">
             Welcome to SingleCell.io
         </h1>
         <br>
       </v-flex>
 
-      <v-flex xs5>
+      <v-flex xs12>
         <v-flex
           mb-5
           xs12
         >
-          <h2 class="headline font-weight-bold mb-3">Knowledge Base</h2>
-          <p v-if="knowledgebase.length>1">
-            <div
-              v-for="(KnowledgeArticle, i) in knowledgebase"
-              :key="i"
-            >
-            <h3 style="font-size:18px" ><router-link :to="`/article/${KnowledgeArticle.nid[0].value}/${getTitle(KnowledgeArticle.title[0].value)}`" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3>
-            <!-- <h3 style="font-size:18px" ><router-link :to="{ name: 'Article', params: { id: 22 }}" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3> -->
-              <!-- <h3><a style="font-size:18px" v-on:click="getTheArticle(KnowledgeArticle.nid[0].value)">{{KnowledgeArticle.title[0].value}}</a></h3> -->
-              <p v-if="KnowledgeArticle.field_summary.length>0">
-                {{KnowledgeArticle.field_summary[0].value}}
+          <v-card>
+            <v-card-title primary-title>
+              <h2 class="headline font-weight-bold mb-3">Knowledge Base</h2>
+            </v-card-title>
+            <v-card-text pl-5>
+              <p v-if="knowledgebase.length>1">
+                <div
+                  v-for="(KnowledgeArticle, i) in knowledgebase"
+                  :key="i"
+                >
+                <h3 style="font-size:18px" ><router-link :to="`/article/${KnowledgeArticle.nid[0].value}/${getTitle(KnowledgeArticle.title[0].value)}`" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3>
+                <!-- <h3 style="font-size:18px" ><router-link :to="{ name: 'Article', params: { id: 22 }}" exact >{{KnowledgeArticle.title[0].value}}</router-link></h3> -->
+                  <!-- <h3><a style="font-size:18px" v-on:click="getTheArticle(KnowledgeArticle.nid[0].value)">{{KnowledgeArticle.title[0].value}}</a></h3> -->
+                  <p v-if="KnowledgeArticle.field_summary.length>0">
+                    {{KnowledgeArticle.field_summary[0].value}}
+                  </p>
+                  <p v-else>Summary not included</p>
+                </div>
               </p>
-              <p v-else>Summary not included</p>
-            </div>
-          </p>
+            </v-card-text>
+          </v-card>
         </v-flex>
 
       </v-flex>
 
 
 
-      <v-flex xs7>
-        <v-flex xs12 mb-5>
+      <!--<v-flex xs7>
+         <v-flex xs12 mb-5>
           <div v-if="!isAuthenticated">
             <v-text-field
               name="name"
@@ -58,9 +63,9 @@
           <v-btn v-if="!isAuthenticated" v-on:click="loginFromForm" color="primary">Login</v-btn>
           <v-btn v-else v-on:click="logoutFromForm" color="primary">Logout</v-btn>
 
-        </v-flex>
+        </v-flex> -->
 
-        <v-flex xs12 mb-5>
+        <!-- <v-flex xs12 mb-5>
           <div v-if="isAuthenticated">
             <h4>Welcome {{this.current_user}}</h4>
             Your User id is: {{ current_user_uid }}
@@ -78,7 +83,7 @@
             <v-flex xs12 sm12 md12>
               <br><br>
               <wysiwyg v-model="postBody">
-              </wysiwyg>
+              </wysiwyg> -->
 
               <!-- <v-textarea
                 solo
@@ -86,16 +91,16 @@
                 label="Content"
                 v-model="postBody"
               ></v-textarea> -->
-            </v-flex>
+            <!-- </v-flex>
             <v-flex xs12 sm12 md12>
               <div v-if="base64Img.length>0">
               </div>
               <input type="file" @change="onFileChange">
               <br>
               <img src="" height="200" >
-            </v-flex>
-            <v-btn v-on:click="createNewKnowledgeArticle" color="primary">Post</v-btn>
-            <br>
+            </v-flex> -->
+            <!-- <v-btn v-on:click="createNewKnowledgeArticle" color="primary">Post</v-btn> -->
+            <!-- <br>
             <br>
             <h4>Your posts: </h4>
             <p v-if="userPosts.length>1">
@@ -108,7 +113,7 @@
             </p>
 
           </div>
-        </v-flex>
+        </v-flex>-->
 
 
       </v-flex>
