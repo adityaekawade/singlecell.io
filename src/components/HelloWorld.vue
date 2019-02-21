@@ -10,6 +10,17 @@
         <br>
       </v-flex>
 
+      <form  action="http://singlecell-io.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+        <input type="input"  name="key" value="firstFile" /><br />
+        <input type="file"   name="file" /> <br />
+    <!-- The elements after this will be ignored -->
+        <input type="submit" name="submit" value="Upload to Amazon S3" />
+
+      </form>
+
+      <p></p>
+      <p></p>
+
       <v-flex xs12>
         <v-flex
           mb-5
@@ -19,7 +30,14 @@
             <v-card-title primary-title>
               <h2 class="headline font-weight-bold mb-3">Knowledge Base</h2>
             </v-card-title>
+            <v-card-title primary-title>
+              <h2 class="headline font-weight-bold mb-3">Genepanel- Generate list of genes</h2>
+            </v-card-title>
             <v-card-text pl-5>
+              <p>
+                <iframe src='http://docs.google.com/gview?url=https://s3.amazonaws.com/singlecell-io/Genepanel-+submission.pdf&embedded=true' style='width:100%; height:1000px;' frameborder='0'></iframe>
+              </p>
+
               <p v-if="knowledgebase.length>1">
                 <div
                   v-for="(KnowledgeArticle, i) in knowledgebase"
@@ -213,5 +231,16 @@ var basic = require('basic-authorization-header');
 </script>
 
 <style>
+.ndfHFb-c4YZDc-i5oIFb {
+  display: none !important;
+}
+
+.ndfHFb-c4YZDc-e1YmVc  {
+  display: none !important;
+}
+
+.ndfHFb-c4YZDc-Wrql6b  {
+  display: none !important;
+}
 
 </style>
